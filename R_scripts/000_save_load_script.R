@@ -18,7 +18,8 @@ write.csv(sample_data, './Documents/GitHub/SampleData_DDM/Data/sample_data.csv',
 sample_data <- read.csv('./Documents/GitHub/SampleData_DDM/Data/sample_data.csv', 
                         header = T, 
                         colClasses = c('factor', 'factor', 'numeric', 
-                                       'factor', 'factor', 'numeric', 'factor'))
+                                       'factor', 'factor', 'numeric', 
+                                       'factor', 'numeric'))
 ## save .RData image
 save.image("./Documents/GitHub/SampleData_DDM/Data/sample_data.RData")
 
@@ -53,6 +54,15 @@ rm(i)
 
 ## Column names to lower case
 names(sample_data) <- c('subject', 'block', 'trial', 'stim_1', 'stim_2', 'rt', 'reaction', 'response')
+
+## Reaction to lower case
+sample_data$reaction <- gsub(sample_data$reaction, 
+                             pattern = '([[:upper:]])',
+                             perl = TRUE, 
+                             replacement = '\\L\\1')
+
+## Strings to factor
+sample_data$reaction <- as.factor(sample_data$reaction)
 
 # ------ 4) Save image and .csv -------------------------------------
 
